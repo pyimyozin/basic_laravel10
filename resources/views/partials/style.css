@@ -1,0 +1,15 @@
+body {
+    padding: 100px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.image {
+    width: 500px;
+}
+
+.image img {
+    width: 100%;
+}
