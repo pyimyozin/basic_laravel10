@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Post;
 use Illuminate\Support\Facades\File;
+
 class PostController extends Controller
 {
     /**
@@ -22,7 +23,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        $data = Post::all();
+        return view('post.create', ['data' => $data]);
     }
 
     /**
@@ -116,14 +118,25 @@ class PostController extends Controller
     }
 
     public function search(Request $request){
+
         $search = $request->input('search');
-        $posts = Post::where('title', 'like', "%$search%")->get();
-    
+        session(['search' => $search]);
+
+        $posts = Post::where(function ($query) use ($search) {
+            $query->where('title', 'like', "%$search%")
+                  ->orWhere('content', 'like', "%$search%");
+        })->paginate(5);
+                
         if ($posts->isEmpty()) {
             return view('post.search', ['result' => $posts, 'message' => 'No posts found for the given search.']);
         }
     
-        return view('post.search', ['result' => $posts]);
+        return view('post.search', ['posts' => $posts], compact('search'));
+    }
+
+    public function clearSearch() {
+        session()->forget('search');
+        return redirect()->route('post#index');
     }
 }    
  

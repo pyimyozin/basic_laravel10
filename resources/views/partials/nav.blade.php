@@ -6,8 +6,11 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../partials/style.css">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 </head>
+<style>
+
+</style>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -38,9 +41,14 @@
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Link</a>
         </li>
       </ul>
-      <form action="{{ route('posts.search') }}" method="GET" class="d-flex">
-        <input class="form-control me-2" type="text" name="search" placeholder="Search Posts">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form method="GET" action="{{ route('posts#search') }}">
+        <div class="search-container d-flex">
+            <input type="text" name="search" id="searchInput" value="{{ session('search') }}" placeholder="Search..." class="form-control position-relative">
+            @if (session('search'))
+              <a href="{{ route('clear#search') }}" class="clear-search" style="margin: auto; text-decoration: none;">✖</a>
+            @endif
+            <button type="submit" class="btn btn-outline-success">Search</button>
+        </div>
     </form>
     </div>
   </div>

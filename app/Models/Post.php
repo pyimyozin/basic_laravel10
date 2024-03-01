@@ -10,10 +10,14 @@ class Post extends Model
 {
     use HasFactory;
     const EXCERPT_LENGTH = 50;
-    protected $fillable = ['title','content','image'];
+    protected $fillable = ['title','image'];
 
     public function excerpt() {
         return Str::limit($this->content,Post::EXCERPT_LENGTH);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
 

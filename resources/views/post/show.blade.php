@@ -1,8 +1,12 @@
-@include('../partials/nav');
+@include('../partials/nav')
     <div class="col-md-2"></div>
     <div class="container col-md-8 my-2">
         <a href="{{url('/posts')}}"><button type="button" class="btn btn-dark">Back</button></a>
-        <h1 class="text-center">{{$post->title}}</h1>
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         @if(isset($post->image))
             <div class="image w-75 d-flex justify-content-center m-auto">
                 <img src="{{ asset('/images') }}/{{$post->image}}" alt="Post Image" class="w-100">

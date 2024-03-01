@@ -1,6 +1,4 @@
-body {
-    padding: 100px;
-}
+
 
 a {
     text-decoration: none !important;
@@ -12,4 +10,9 @@ a {
 
 .image img {
     width: 100%;
+}
+
+.highlight {
+    background-color: yellow;
+    font-weight: bold;
 }
