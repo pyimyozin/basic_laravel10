@@ -8,7 +8,7 @@ use Illuminate\Contracts\Session\Session;
 class UserController extends Controller {
     public function index() {
         $users = User::paginate(5);
-        return view('user/index',compact('users'));
+        return view('back.user.index',compact('users'));
     }
 
     public function registration() {
@@ -35,34 +35,34 @@ class UserController extends Controller {
         return redirect()->route('users#index')->with('success', 'User created successfully');
     }
 
-    public function showLoginForm()
-    {
-        return view('user/login');
-    }
+    // public function showLoginForm()
+    // {
+    //     return view('user/login');
+    // }
 
-    public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email|exists:users,email',
-            'password' => 'required',
-        ]);
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required|email|exists:users,email',
+    //         'password' => 'required',
+    //     ]);
 
-        $credentials = $request->only('email', 'password');
+    //     $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credentials)) {
+    //     if (Auth::attempt($credentials)) {
             
-            $request->session()->regenerate();
-            return redirect('/posts')->with("success","Login successed.");
-        } else {
-            return redirect('/login')->with("login failed","Creditionals do not match our record.");
+    //         $request->session()->regenerate();
+    //         return redirect('/posts')->with("success","Login successed.");
+    //     } else {
+    //         return redirect('/login')->with("login failed","Creditionals do not match our record.");
 
-        }
-    }
+    //     }
+    // }
 
-    public function logout()
-    {
-        Auth::logout();
+    // public function logout()
+    // {
+    //     Auth::logout();
 
-        return redirect('/login');
-    }
+    //     return redirect('/login');
+    // }
 }
